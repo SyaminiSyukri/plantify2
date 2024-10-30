@@ -1,5 +1,8 @@
+from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('register/', views.registerPage, name='register'),
@@ -9,11 +12,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('<id>/<str:slug>/', views.detail_view, name='details'),
     path('search/', views.search, name='search'),
-
-    path('notes/', views.notesPage, name='notes'),
-
-
-    path("plant/<int:image_id>/edit/", views.edit_plant, name="edit_plant"),
     
 
 
@@ -24,8 +22,11 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile/update/', views.profile_update, name='profile_update'),
 
+    path('notes/', views.notes_view, name='notes'),
+    path('add_notes/', views.add_notes, name='add_notes'),
 
 
 
 
-]
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

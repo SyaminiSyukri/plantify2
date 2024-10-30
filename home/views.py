@@ -5,6 +5,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import Image, Notes
+from .forms import NotesForm
+
 
 from django.contrib.auth.models import User 
 
@@ -81,8 +84,9 @@ def search(request):
     return render(request, 'home/search.html',{'query':query, 'result':result})
 
 
-def notesPage(request):
-    context = {}
+def notes_view(request):
+    notes = Notes.objects.all()
+    context = {'notes': notes }
     return render(request, 'home/notes.html', context)
 
 
@@ -128,7 +132,7 @@ def edit_user(request, user_id):
             else:
                 messages.error(request, "Passwords do not match.")
                 # Return the same template with the error message
-                return redirect('index') #render(request, 'home/index.html', {'user': user})# Replace with the actual URL name for this view
+                return redirect('index') #render(request, 'home/index.html', {'user': user}) # Replace with the actual URL name for this view
 
         user.save()
         messages.success(request, 'User details updated successfully!')
@@ -146,8 +150,23 @@ def delete_user(request, user_id):
 
 
 
+def notes_view(request):
+    notes = Notes.objects.all()
+    context = {'notes': notes }
+    return render(request, 'home/notes.html', context)
 
 
+def add_notes(request):
+    if request.method == 'POST':
+        form = NotesForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()  # Save the form data to the database
+            messages.success(request, "Plant note added successfully!")
+            return redirect('index')  # Redirect to a page, like the homepage
+    else:
+        form = NotesForm()
+    
+    return render(request, 'home/add_notes.html', {'form': form})
 
 
 
