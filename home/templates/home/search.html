@@ -19,8 +19,8 @@
     <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #B1E09C">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index' %}">
-                <img src="{% static 'logo/logo.png' %}" alt="" width="30" height="24"
-                    class="d-inline-block align-text-top">Plantify</a>
+                <img src="{% static 'logo/logo.png' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">Plantify
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -28,38 +28,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
                     </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Categories
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Flower</a></li>
-                            <li><a class="dropdown-item" href="#">Fruit</a></li>
-                            <li><a class="dropdown-item" href="#">Herb</a></li>
-                            <li><a class="dropdown-item" href="#">Succulent</a></li>
-                        </ul>
-                    </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'notes' %}">My Notes</a>
                     </li>
-
+                    <!-- Trigger for Edit Profile modal -->
+                    <li class="nav-item">
+            
+                    </li>
+                    
                 </ul>
 
-                <span class="me-2">Hello, <strong>{{request.user}}</strong></span>
+                <span class="me-2">Hello, <strong>{{ request.user }}</strong></span>
 
                 <form action="{% url 'search' %}" class="d-flex" method="GET">
                     <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success me-2" type="submit">Search</button>
+                    <button type="button" class="btn btn-outline-success me-2" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                        Edit Profile
+                    </button>
+                    <span><a class="btn btn-outline-success" href="{% url 'logout' %}">Log Out</a></span>
                 </form>
+
                 
-                <span><a class="btn btn-outline-success" href="{% url 'logout' %}">Log Out</a></span>
             </div>
         </div>
     </nav>
